@@ -88,7 +88,7 @@ namespace Antymology.Terrain
         /// </summary>
         private void GenerateAnts()
         {
-            createAnt(1000);
+            createAnt(98);
         }
 
         private void createAnt(int seed)
