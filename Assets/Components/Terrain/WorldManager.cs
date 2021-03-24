@@ -88,9 +88,16 @@ namespace Antymology.Terrain
         /// </summary>
         private void GenerateAnts()
         {
-            throw new NotImplementedException();
+            createPlayer();
         }
 
+        private void createPlayer()
+        {
+            GameObject newPlayer = Instantiate(antPrefab) as GameObject;
+            newPlayer.transform.position = new Vector3(50,50,50);
+            GetBlock((int)newPlayer.transform.position.x,(int)newPlayer.transform.position.y,(int)newPlayer.transform.position.z);
+            //newPlayer.GetComponent<PlayerBehavior>().constructor(createattribute(75,12),createattribute(18,2),createattribute(22,3),createattribute(65,13),2);
+         }
         #endregion
 
         #region Methods
