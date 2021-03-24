@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Antymology.Terrain
 {
@@ -14,12 +15,11 @@ namespace Antymology.Terrain
         /// Statically held tile map coordinate.
         /// </summary>
         private static Vector2 _tileMapCoordinate = new Vector2(3, 1);
-
+        public override String Name{get {return"Stone";}}
         /// <summary>
         /// Statically held is visible.
         /// </summary>
         private static bool _isVisible = true;
-
         #endregion
 
         #region Methods

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Antymology.Terrain
 {
@@ -9,7 +10,7 @@ namespace Antymology.Terrain
     {
 
         #region Fields
-
+        public override String Name{get {return"Nest";}}
         /// <summary>
         /// Statically held tile map coordinate.
         /// </summary>

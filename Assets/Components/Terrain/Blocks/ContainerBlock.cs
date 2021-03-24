@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Antymology.Terrain
 {
@@ -8,7 +9,7 @@ namespace Antymology.Terrain
     public class ContainerBlock : AbstractBlock
     {
         #region Fields
-
+        public override String Name{get {return"Container";}}
         /// <summary>
         /// Statically held tile map coordinate.
         /// </summary>

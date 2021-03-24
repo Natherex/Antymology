@@ -29,4 +29,6 @@ public abstract class AbstractBlock
     /// The world z coordinate of this block.
     /// </summary>
     public int worldZCoordinate;
+
+    public abstract string Name{get;}
 }

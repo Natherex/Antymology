@@ -12,9 +12,11 @@ namespace Antymology.Terrain
     /// </summary>
     public class AirBlock : AbstractBlock
     {
-
+    
+        
         #region Fields
-
+        public override String Name{get {return"Air";}}
+        
         /// <summary>
         /// Statically held is visible.
         /// </summary>
