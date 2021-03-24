@@ -88,17 +88,18 @@ namespace Antymology.Terrain
         /// </summary>
         private void GenerateAnts()
         {
-            createAnt();
+            createAnt(1000);
         }
 
-        private void createAnt()
+        private void createAnt(int seed)
         {
-            GameObject newPlayer = Instantiate(antPrefab) as GameObject;
-            newPlayer.transform.position = new Vector3(50,50,50);
-            Debug.Log(GetBlock((int)newPlayer.transform.position.x,(int)newPlayer.transform.position.y,(int)newPlayer.transform.position.z).Name);
-            while(GetBlock((int)newPlayer.transform.position.x,(int)newPlayer.transform.position.y-1,(int)newPlayer.transform.position.z).Name == "Air")
+            GameObject newAnt = Instantiate(antPrefab) as GameObject;
+            newAnt.transform.position = new Vector3(50,50,50);
+            newAnt.GetComponent<AntBehaviour>().seed = seed;
+            Debug.Log(GetBlock((int)newAnt.transform.position.x,(int)newAnt.transform.position.y,(int)newAnt.transform.position.z).Name);
+            while(GetBlock((int)newAnt.transform.position.x,(int)newAnt.transform.position.y-1,(int)newAnt.transform.position.z).Name == "Air")
             {
-               newPlayer.transform.position -= new Vector3(0,1,0);
+               newAnt.transform.position -= new Vector3(0,1,0);
             }
             //newPlayer.GetComponent<PlayerBehavior>().constructor(createattribute(75,12),createattribute(18,2),createattribute(22,3),createattribute(65,13),2);
          }
