@@ -88,7 +88,10 @@ namespace Antymology.Terrain
         /// </summary>
         private void GenerateAnts()
         {
-            createAnt(98);
+            var rand = new System.Random((int)Time.time);
+            int num = ConfigurationManager.Instance.numOfAnts;
+            for(int i = 0 ; i < num ; i++)
+                createAnt(rand.Next());
         }
 
         private void createAnt(int seed)
@@ -96,7 +99,6 @@ namespace Antymology.Terrain
             GameObject newAnt = Instantiate(antPrefab) as GameObject;
             newAnt.transform.position = new Vector3(50,50,50);
             newAnt.GetComponent<AntBehaviour>().seed = seed;
-            Debug.Log(GetBlock((int)newAnt.transform.position.x,(int)newAnt.transform.position.y,(int)newAnt.transform.position.z).Name);
             while(GetBlock((int)newAnt.transform.position.x,(int)newAnt.transform.position.y-1,(int)newAnt.transform.position.z).Name == "Air")
             {
                newAnt.transform.position -= new Vector3(0,1,0);

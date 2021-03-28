@@ -16,6 +16,11 @@ public class ConfigurationManager : Singleton<ConfigurationManager>
     public int World_Diameter = 16;
 
     /// <summary>
+    /// The number of Ants spawned in the world.
+    /// </summary>
+    public int numOfAnts = 1;
+
+    /// <summary>
     /// The number of chunks in the y dimension of the world.
     /// </summary>
     public int World_Height = 4;

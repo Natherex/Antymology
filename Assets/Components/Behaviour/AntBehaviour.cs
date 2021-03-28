@@ -8,8 +8,8 @@ public class AntBehaviour : MonoBehaviour
 {
     private int health = 100;
     public int seed;
-    private int movementCost = 10;
-    private int movementPenalty = 0;
+    private int turnCost = 10;
+    private int turnPenalty = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,27 +40,31 @@ public class AntBehaviour : MonoBehaviour
             int currentX = (int)this.transform.position.x;
             int currentY = (int)this.transform.position.y;
             int currentZ = (int)this.transform.position.z;
-            if(WorldManager.Instance.GetBlock(currentX,currentY,currentZ).Name.Equals("Acid"))
-            {
-                movementPenalty = movementCost;
-            }else
-                movementPenalty = 0;
+            if(WorldManager.Instance.GetBlock(currentX,currentY-1,currentZ).Name.Equals("Acid"))
+                turnPenalty = turnCost;
+            else
+                turnPenalty = 0;
+            health -= (turnCost+turnPenalty);
 
-            if(WorldManager.Instance.GetBlock(currentX,currentY-1,currentZ).Name.Equals("Mulch") && health <50)
-            {
-                WorldManager.Instance.SetBlock(currentX,currentY-1,currentZ,new AirBlock());
-                this.transform.position += new Vector3(0,-1 ,0);
-                health +=50;
-            }
     }
+    /*
+        Takes in an integer and performs the corresponding action if it is valid
+        0 - move 1 tile in x axis
+        1 - move 1 tile in z axis
+        2 - move -1 tile in x axis
+        3 - move -1 tile in z axis
+        4 - eat mulch tile
+        5 - dig up one tile
+        7 - 
+    */
     private void movement(int nextMove)
     {
-            var rand = new System.Random(seed);
             int currentX = (int)this.transform.position.x;
             int currentY = (int)this.transform.position.y;
             int currentZ = (int)this.transform.position.z;
             int movementHeight;
             Debug.Log(nextMove);
+
             switch(nextMove)
             {
                 case 0:
@@ -68,7 +72,6 @@ public class AntBehaviour : MonoBehaviour
                         if(movementHeight != 9)
                         {
                             this.transform.position += new Vector3(1,movementHeight ,0);
-                            health -=movementCost+movementPenalty;
                         }
                 break;
                 case 1:
@@ -76,7 +79,6 @@ public class AntBehaviour : MonoBehaviour
                         if(movementHeight != 9)
                         {
                             this.transform.position += new Vector3(0,movementHeight ,1);
-                            health -=movementCost+movementPenalty;
                         }
                 break;
                 case 2:
@@ -84,7 +86,6 @@ public class AntBehaviour : MonoBehaviour
                         if(movementHeight != 9)
                         {
                             this.transform.position += new Vector3(-1,movementHeight ,0);
-                            health -=movementCost+movementPenalty;
                         }
                 break;
                 case 3:
@@ -92,7 +93,21 @@ public class AntBehaviour : MonoBehaviour
                         if(movementHeight != 9)
                         {
                             this.transform.position += new Vector3(0,movementHeight ,-1);
-                            health -=movementCost+movementPenalty;
+                        }
+                break;
+                case 4:
+                        if(WorldManager.Instance.GetBlock(currentX,currentY-1,currentZ).Name.Equals("Mulch") && health <50)
+                        {
+                            WorldManager.Instance.SetBlock(currentX,currentY-1,currentZ,new AirBlock());
+                            this.transform.position += new Vector3(0,-1 ,0);
+                            health +=50;
+                        }
+                break;
+                case 5:
+                        if(!WorldManager.Instance.GetBlock(currentX,currentY-1,currentZ).Name.Equals("Mulch") && !WorldManager.Instance.GetBlock(currentX,currentY-1,currentZ).Name.Equals("Container"))
+                        {
+                            WorldManager.Instance.SetBlock(currentX,currentY-1,currentZ,new AirBlock());
+                            this.transform.position += new Vector3(0,-1 ,0);
                         }
                 break;
             }
