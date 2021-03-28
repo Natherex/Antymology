@@ -15,7 +15,7 @@ namespace Antymology.Terrain
         /// The prefab containing the ant.
         /// </summary>
         public GameObject antPrefab;
-
+        public GameObject queenPrefab;
         /// <summary>
         /// The material used for eech block.
         /// </summary>
@@ -74,12 +74,14 @@ namespace Antymology.Terrain
         /// </summary>
         private void Start()
         {
+            
             GenerateData();
             GenerateChunks();
 
             Camera.main.transform.position = new Vector3(0 / 2, Blocks.GetLength(1), 0);
             Camera.main.transform.LookAt(new Vector3(Blocks.GetLength(0), 0, Blocks.GetLength(2)));
 
+            ConfigurationManager.Instance.nestBlocksPlaced = 0;;
             GenerateAnts();
         }
 
@@ -92,6 +94,7 @@ namespace Antymology.Terrain
             int num = ConfigurationManager.Instance.numOfAnts;
             for(int i = 0 ; i < num ; i++)
                 createAnt(rand.Next());
+            createQueen(rand.Next());
         }
 
         private void createAnt(int seed)
@@ -99,6 +102,18 @@ namespace Antymology.Terrain
             GameObject newAnt = Instantiate(antPrefab) as GameObject;
             newAnt.transform.position = new Vector3(50,50,50);
             newAnt.GetComponent<AntBehaviour>().seed = seed;
+            while(GetBlock((int)newAnt.transform.position.x,(int)newAnt.transform.position.y-1,(int)newAnt.transform.position.z).Name == "Air")
+            {
+               newAnt.transform.position -= new Vector3(0,1,0);
+            }
+            //newPlayer.GetComponent<PlayerBehavior>().constructor(createattribute(75,12),createattribute(18,2),createattribute(22,3),createattribute(65,13),2);
+         }
+
+         private void createQueen(int seed)
+        {
+            GameObject newAnt = Instantiate(queenPrefab) as GameObject;
+            newAnt.transform.position = new Vector3(50,50,50);
+            newAnt.GetComponent<QueenBehaviour>().seed = seed;
             while(GetBlock((int)newAnt.transform.position.x,(int)newAnt.transform.position.y-1,(int)newAnt.transform.position.z).Name == "Air")
             {
                newAnt.transform.position -= new Vector3(0,1,0);

@@ -15,10 +15,12 @@ public class ConfigurationManager : Singleton<ConfigurationManager>
     /// </summary>
     public int World_Diameter = 16;
 
+
+    public int nestBlocksPlaced = 0;
     /// <summary>
     /// The number of Ants spawned in the world.
     /// </summary>
-    public int numOfAnts = 1;
+    public int numOfAnts = 10;
 
     /// <summary>
     /// The number of chunks in the y dimension of the world.

@@ -4,13 +4,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class AntBehaviour : MonoBehaviour
+
+public class QueenBehaviour : MonoBehaviour
 {
-    public int health = 100;
+    private int maxHealth = 100;
+    private int health = 100;
+    private int limit = 50;
     public int seed;
     private int turnCost = 2;
     private int turnPenalty = 0;
     // Start is called before the first frame update
+    private Boolean toRight = true;
     void Start()
     {
         StartCoroutine(actions());
@@ -20,19 +24,71 @@ public class AntBehaviour : MonoBehaviour
     void Update()
     {
     }
+    void OnCollisionEnter(Collision collision)
+    {
+        AntBehaviour ant = collision.gameObject.GetComponent<AntBehaviour>();
+        if(ant.health > 20)
+        {
+            int removed = ant.health - 20;
+            health = health + removed;
+            ant.health = ant.health - removed;
+            if(health>maxHealth)
+            {
+                removed = maxHealth-health;
+                health = health - removed;
+                ant.health = ant.health + removed;
+            }
+        }
+    }
     IEnumerator actions()
     {
         var rand = new System.Random(seed);
         while(true)
         {
             yield return new WaitForSeconds(1); 
+            Debug.Log(ConfigurationManager.Instance.nestBlocksPlaced);
             if (health == 0)
             {
                 Destroy(gameObject);
-            }
+            }else if(health >= limit)
+            {
+                int currentX = (int)this.transform.position.x;
+                int currentY = (int)this.transform.position.y;
+                int currentZ = (int)this.transform.position.z;
+                if(toRight && validMovement(currentX+1,currentY,currentZ) !=9 )
+                {
+                    movement(9);
+                    movement(0);
+                    ConfigurationManager.Instance.nestBlocksPlaced++;
+                }else if(validMovement(currentX-1,currentY,currentZ) !=9 )
+                {
+                    toRight = false;
+                    movement(9);
+                    movement(2);
+                    ConfigurationManager.Instance.nestBlocksPlaced++;
+                }else if(validMovement(currentX,currentY,currentZ+1) !=9 )
+                {
+                    toRight = true;
 
+                    movement(9);
+                    movement(1);
+                    ConfigurationManager.Instance.nestBlocksPlaced++;
+                }else if(validMovement(currentX,currentY,currentZ-1) !=9 )
+                {
+                    toRight = true;
+                    
+                    movement(9);
+                    movement(3);
+                    ConfigurationManager.Instance.nestBlocksPlaced++;
+                }else
+                {
+                    WorldManager.Instance.SetBlock(currentX,currentY,currentZ,new StoneBlock());
+                    this.transform.position += new Vector3(0,1 ,0);
+                    toRight = true;
+                    movement(rand.Next(0,4));
+                }
+            }
             blockInteraction();
-            movement(rand.Next(0,6));
         }
     }
     private void blockInteraction()
@@ -46,7 +102,7 @@ public class AntBehaviour : MonoBehaviour
                 turnPenalty = 0;
             health -= (turnCost+turnPenalty);
 
-            if(Collider.)
+            //take other ants health
 
     }
     /*
@@ -57,7 +113,7 @@ public class AntBehaviour : MonoBehaviour
         3 - move -1 tile in z axis
         4 - eat mulch tile
         5 - dig up one tile
-        7 - 
+        9 - place nest block
     */
     private void movement(int nextMove)
     {
@@ -105,12 +161,14 @@ public class AntBehaviour : MonoBehaviour
                         }
                 break;
                 case 5:
-                        if(!WorldManager.Instance.GetBlock(currentX,currentY-1,currentZ).Name.Equals("Mulch") && !WorldManager.Instance.GetBlock(currentX,currentY-1,currentZ).Name.Equals("Container")
-                            && !WorldManager.Instance.GetBlock(currentX,currentY-1,currentZ).Name.Equals("Nest"))
+                        if(!WorldManager.Instance.GetBlock(currentX,currentY-1,currentZ).Name.Equals("Mulch") && !WorldManager.Instance.GetBlock(currentX,currentY-1,currentZ).Name.Equals("Container"))
                         {
                             WorldManager.Instance.SetBlock(currentX,currentY-1,currentZ,new AirBlock());
                             this.transform.position += new Vector3(0,-1 ,0);
                         }
+                break;
+                case 9:
+                        WorldManager.Instance.SetBlock(currentX,currentY,currentZ,new NestBlock());
                 break;
             }
     }
