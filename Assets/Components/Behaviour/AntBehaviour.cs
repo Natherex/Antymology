@@ -46,8 +46,6 @@ public class AntBehaviour : MonoBehaviour
                 turnPenalty = 0;
             health -= (turnCost+turnPenalty);
 
-            if(Collider.)
-
     }
     /*
         Takes in an integer and performs the corresponding action if it is valid
