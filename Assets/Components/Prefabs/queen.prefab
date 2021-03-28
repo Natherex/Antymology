@@ -109,7 +109,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1200133950819207084}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -206,7 +206,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1200165179623421898}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -303,7 +303,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1330160384699800820}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -400,7 +400,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2048791112013862695}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -497,7 +497,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2184433516371132685}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -594,7 +594,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 3283240922926253140}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -691,7 +691,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 3461970297668482450}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -788,7 +788,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 4257179836822006859}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -885,7 +885,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 4872907989628077579}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -982,7 +982,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 5345327158512862862}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -1079,7 +1079,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 5648401833447961128}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -1273,7 +1273,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 6855974815838066660}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -1399,7 +1399,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7403684006556197382}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -1496,7 +1496,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7821060989744119395}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -1593,7 +1593,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8566032966723631891}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -1690,7 +1690,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8713514097093552060}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -1787,7 +1787,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8732050743072686793}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.50000036
   m_Height: 2.000001
   m_Direction: 1
@@ -1804,11 +1804,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: queen
       objectReference: {fileID: 0}
+    - target: {fileID: 1303370925295550411, guid: ed005d84d347a8f44b72b48414aae4ef,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2800860541612240682, guid: ed005d84d347a8f44b72b48414aae4ef,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6f915dff5609bac4d91e169ee222de79, type: 2}
+    - target: {fileID: 2834234247091357861, guid: ed005d84d347a8f44b72b48414aae4ef,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096498706908300095, guid: ed005d84d347a8f44b72b48414aae4ef,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4940341628282974405, guid: ed005d84d347a8f44b72b48414aae4ef,
         type: 3}
       propertyPath: m_IsTrigger
@@ -1824,6 +1839,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6f915dff5609bac4d91e169ee222de79, type: 2}
+    - target: {fileID: 6675720674917232469, guid: ed005d84d347a8f44b72b48414aae4ef,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6762717235983448984, guid: ed005d84d347a8f44b72b48414aae4ef,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1889,11 +1909,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7008662491914033278, guid: ed005d84d347a8f44b72b48414aae4ef,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7534669898013277299, guid: ed005d84d347a8f44b72b48414aae4ef,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6f915dff5609bac4d91e169ee222de79, type: 2}
+    - target: {fileID: 7868935408619205472, guid: ed005d84d347a8f44b72b48414aae4ef,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8360899773130683050, guid: ed005d84d347a8f44b72b48414aae4ef,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8431568022451610228, guid: ed005d84d347a8f44b72b48414aae4ef,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

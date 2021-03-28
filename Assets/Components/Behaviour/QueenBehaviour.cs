@@ -43,19 +43,22 @@ public class QueenBehaviour : MonoBehaviour
             }
         }
     }
-    void OnTriggerEnter(Collider collision)
+    void OnTriggerExit(Collider collision)
     {
         AntBehaviour ant = collision.gameObject.GetComponent<AntBehaviour>();
         Debug.Log(health);
         if(ant.health > 20)
         {
-            Debug.Log(health+ "SSSSSSSSS");
+            Debug.Log(health+ " before");
             int removed = ant.health - 20;
+            Debug.Log(removed+ " removed");
             health = health + removed;
+            Debug.Log(health+ " after");
             ant.health = ant.health - removed;
+            Debug.Log(ant.health+ " ant Health" );
             if(health>maxHealth)
             {
-                removed = maxHealth-health;
+                removed = health - maxHealth;
                 health = health - removed;
                 ant.health = ant.health + removed;
             }
