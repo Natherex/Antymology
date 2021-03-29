@@ -84,12 +84,14 @@ public class QueenBehaviour : MonoBehaviour
                     movement(9);
                     movement(0);
                     ConfigurationManager.Instance.nestBlocksPlaced++;
+                    health = health - (maxHealth/3);
                 }else if(validMovement(currentX-1,currentY,currentZ) !=9 )
                 {
                     toRight = false;
                     movement(9);
                     movement(2);
                     ConfigurationManager.Instance.nestBlocksPlaced++;
+                    health = health - (maxHealth/3);
                 }else if(validMovement(currentX,currentY,currentZ+1) !=9 )
                 {
                     toRight = true;
@@ -97,6 +99,7 @@ public class QueenBehaviour : MonoBehaviour
                     movement(9);
                     movement(1);
                     ConfigurationManager.Instance.nestBlocksPlaced++;
+                    health = health - (maxHealth/3);
                 }else if(validMovement(currentX,currentY,currentZ-1) !=9 )
                 {
                     toRight = true;
@@ -104,6 +107,7 @@ public class QueenBehaviour : MonoBehaviour
                     movement(9);
                     movement(3);
                     ConfigurationManager.Instance.nestBlocksPlaced++;
+                    health = health - (maxHealth/3);
                 }else
                 {
                     WorldManager.Instance.SetBlock(currentX,currentY,currentZ,new StoneBlock());
@@ -126,7 +130,9 @@ public class QueenBehaviour : MonoBehaviour
                 turnPenalty = 0;
             health -= (turnCost+turnPenalty);
 
-            //take other ants health
+            WorldManager.Instance.queensX = currentX;
+            WorldManager.Instance.queensY = currentY;
+            WorldManager.Instance.queensZ = currentZ;
 
     }
     /*

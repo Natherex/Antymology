@@ -12,10 +12,19 @@ namespace Antymology.Terrain
         #region Fields
 
         /// <summary>
-        /// The prefab containing the ant.
+        /// The prefabs containing the ant and queen.
         /// </summary>
         public GameObject antPrefab;
         public GameObject queenPrefab;
+
+
+        /// <summary>
+        /// The queens location.
+        /// </summary>
+        public int queensX;
+        public int queensY;
+        public int queensZ;
+
         /// <summary>
         /// The material used for eech block.
         /// </summary>
@@ -39,6 +48,12 @@ namespace Antymology.Terrain
         /// <summary>
         /// Random number generator.
         /// </summary>
+
+
+        private int[] layers = new int[] { 3, 10, 10, 1 };
+        private NeuralNetwork current;
+        private NeuralNetwork previous;
+
         private SimplexNoise SimplexNoise;
 
         #endregion
@@ -81,7 +96,8 @@ namespace Antymology.Terrain
             Camera.main.transform.position = new Vector3(0 / 2, Blocks.GetLength(1), 0);
             Camera.main.transform.LookAt(new Vector3(Blocks.GetLength(0), 0, Blocks.GetLength(2)));
 
-            ConfigurationManager.Instance.nestBlocksPlaced = 0;;
+            ConfigurationManager.Instance.nestBlocksPlaced = 0;
+            previous = new NeuralNetwork(layers);
             GenerateAnts();
         }
 
@@ -123,6 +139,27 @@ namespace Antymology.Terrain
         #endregion
 
         #region Methods
+
+        public int getMove(float xToQueen, float yToQueen, float health )
+        {
+            float move = 0;
+            float[] inputs = new float[]{xToQueen,yToQueen,health};
+            move = current.FeedForward(inputs)[0];
+            
+            if(move < 0.16667)
+                return 0;
+            if(move < 0.33333)
+                return 1;
+            if(move < 0.5)
+                return 2;
+            if(move < 0.66667)
+                return 3;
+            if(move < 0.83333)
+                return 4;
+            else
+                return 5;    
+        }
+
 
         /// <summary>
         /// Retrieves an abstract block type at the desired world coordinates.
