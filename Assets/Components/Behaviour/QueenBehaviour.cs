@@ -31,7 +31,6 @@ public class QueenBehaviour : MonoBehaviour
         Debug.Log(health);
         if(ant.health > 20)
         {
-            Debug.Log(health+ "SSSSSSSSS");
             int removed = ant.health - 20;
             health = health + removed;
             ant.health = ant.health - removed;
@@ -46,16 +45,11 @@ public class QueenBehaviour : MonoBehaviour
     void OnTriggerExit(Collider collision)
     {
         AntBehaviour ant = collision.gameObject.GetComponent<AntBehaviour>();
-        Debug.Log(health);
         if(ant.health > 20)
         {
-            Debug.Log(health+ " before");
             int removed = ant.health - 20;
-            Debug.Log(removed+ " removed");
             health = health + removed;
-            Debug.Log(health+ " after");
             ant.health = ant.health - removed;
-            Debug.Log(ant.health+ " ant Health" );
             if(health>maxHealth)
             {
                 removed = health - maxHealth;
@@ -70,9 +64,10 @@ public class QueenBehaviour : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(1); 
-            Debug.Log(ConfigurationManager.Instance.nestBlocksPlaced);
             if (health == 0)
             {
+                WorldManager.Instance.queensHealth = 0;
+                WorldManager.Instance.generation();
                 Destroy(gameObject);
             }else if(health >= limit)
             {
@@ -133,6 +128,7 @@ public class QueenBehaviour : MonoBehaviour
             WorldManager.Instance.queensX = currentX;
             WorldManager.Instance.queensY = currentY;
             WorldManager.Instance.queensZ = currentZ;
+            WorldManager.Instance.queensHealth = health;
 
     }
     /*

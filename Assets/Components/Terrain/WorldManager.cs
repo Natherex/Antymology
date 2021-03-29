@@ -25,6 +25,8 @@ namespace Antymology.Terrain
         public int queensY;
         public int queensZ;
 
+        public int queensHealth = 100;
+
         /// <summary>
         /// The material used for eech block.
         /// </summary>
@@ -51,8 +53,8 @@ namespace Antymology.Terrain
 
 
         private int[] layers = new int[] { 3, 10, 10, 1 };
-        private NeuralNetwork current;
-        private NeuralNetwork previous;
+        private NeuralNetwork network1;
+        private NeuralNetwork network2;
 
         private SimplexNoise SimplexNoise;
 
@@ -97,13 +99,61 @@ namespace Antymology.Terrain
             Camera.main.transform.LookAt(new Vector3(Blocks.GetLength(0), 0, Blocks.GetLength(2)));
 
             ConfigurationManager.Instance.nestBlocksPlaced = 0;
-            previous = new NeuralNetwork(layers);
+            network1= new NeuralNetwork(layers);
             GenerateAnts();
         }
+
 
         /// <summary>
         /// TO BE IMPLEMENTED BY YOU
         /// </summary>
+        public void generation()
+        {
+            RNG = new System.Random(ConfigurationManager.Instance.Seed);
+            // Generate new simplex noise generator
+            SimplexNoise = new SimplexNoise(ConfigurationManager.Instance.Seed);
+            // Initialize a new 3D array of blocks with size of the number of chunks times the size of each chunk
+            Array.Clear(Blocks,0,Blocks.Length);
+            Blocks = new AbstractBlock[
+                ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter,
+                ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter,
+                ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter];
+
+            // Initialize a new 3D array of chunks with size of the number of chunks
+            Chunks = new Chunk[
+                ConfigurationManager.Instance.World_Diameter,
+                ConfigurationManager.Instance.World_Height,
+                ConfigurationManager.Instance.World_Diameter];
+            Debug.Log(ConfigurationManager.Instance.nestBlocksPlaced);
+            Debug.Log("IM HERE");
+            GenerateData();
+            GenerateChunks();
+
+            Camera.main.transform.position = new Vector3(0 / 2, Blocks.GetLength(1), 0);
+            Camera.main.transform.LookAt(new Vector3(Blocks.GetLength(0), 0, Blocks.GetLength(2)));
+
+            ConfigurationManager.Instance.nestBlocksPlaced = 0;
+            network1= new NeuralNetwork(layers);
+            GenerateAnts();
+
+            if(network1 == null)
+            {
+                network2= new NeuralNetwork(layers);
+                network2.SetFitness(0);
+                network1= new NeuralNetwork(network2);
+                network1.Mutate();
+            }else{
+                if(network1.CompareTo(network2) == 1)
+                {
+                    network2 = new NeuralNetwork(network1);
+                    network2.SetFitness(network1.GetFitness());
+                }
+                network1 = new NeuralNetwork(network2);
+                network1.Mutate();
+            }
+            
+        }
+
         private void GenerateAnts()
         {
             var rand = new System.Random((int)Time.time);
@@ -144,7 +194,7 @@ namespace Antymology.Terrain
         {
             float move = 0;
             float[] inputs = new float[]{xToQueen,yToQueen,health};
-            move = current.FeedForward(inputs)[0];
+            move = network1.FeedForward(inputs)[0];
             
             if(move < 0.16667)
                 return 0;
