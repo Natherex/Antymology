@@ -6,7 +6,7 @@ public class UI : MonoBehaviour
 {
     void OnGUI()
     {
-        GUI.Box ( new Rect (150,50,150,30), "Nest Blocks: " + ConfigurationManager.Instance.nestBlocksPlaced);
+        GUI.Box ( new Rect (50,50,150,30), "Nest Blocks: " + ConfigurationManager.Instance.nestBlocksPlaced);
     }
 
 }

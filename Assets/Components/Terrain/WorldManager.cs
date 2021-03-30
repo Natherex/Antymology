@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Antymology.Terrain
 {
@@ -36,12 +37,13 @@ namespace Antymology.Terrain
         /// The raw data of the underlying world structure.
         /// </summary>
         private AbstractBlock[,,] Blocks;
-
+        private AbstractBlock[,,] BlocksCopy;
         /// <summary>
         /// Reference to the geometry data of the chunks.
         /// </summary>
         private Chunk[,,] Chunks;
 
+        private Chunk[,,] ChunksCopy;
         /// <summary>
         /// Random number generator.
         /// </summary>
@@ -94,26 +96,26 @@ namespace Antymology.Terrain
             
             GenerateData();
             GenerateChunks();
-
             Camera.main.transform.position = new Vector3(0 / 2, Blocks.GetLength(1), 0);
             Camera.main.transform.LookAt(new Vector3(Blocks.GetLength(0), 0, Blocks.GetLength(2)));
 
             ConfigurationManager.Instance.nestBlocksPlaced = 0;
             network1= new NeuralNetwork(layers);
+            network2= new NeuralNetwork(layers);
             GenerateAnts();
         }
 
-
-        /// <summary>
-        /// TO BE IMPLEMENTED BY YOU
-        /// </summary>
-        public void generation()
+        //CANT GET RESET TO WORK
+        public void reset()
         {
-            RNG = new System.Random(ConfigurationManager.Instance.Seed);
-            // Generate new simplex noise generator
-            SimplexNoise = new SimplexNoise(ConfigurationManager.Instance.Seed);
+            network1.SetFitness(ConfigurationManager.Instance.nestBlocksPlaced);
+            foreach (GameObject o in UnityEngine.Object.FindObjectsOfType<GameObject>()) {
+                if(!o.tag.Equals("MainCamera") && !o.tag.Equals("dontDelete") )
+                    Destroy(o);
+            }
+            //Blocks = (AbstractBlock[,,])BlocksCopy.Clone();
+            //Chunks = (Chunk[,,])ChunksCopy.Clone();
             // Initialize a new 3D array of blocks with size of the number of chunks times the size of each chunk
-            Array.Clear(Blocks,0,Blocks.Length);
             Blocks = new AbstractBlock[
                 ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter,
                 ConfigurationManager.Instance.World_Height * ConfigurationManager.Instance.Chunk_Diameter,
@@ -124,34 +126,27 @@ namespace Antymology.Terrain
                 ConfigurationManager.Instance.World_Diameter,
                 ConfigurationManager.Instance.World_Height,
                 ConfigurationManager.Instance.World_Diameter];
-            Debug.Log(ConfigurationManager.Instance.nestBlocksPlaced);
-            Debug.Log("IM HERE");
-            GenerateData();
-            GenerateChunks();
+                ConfigurationManager.Instance.nestBlocksPlaced = 0;
+                GenerateData();
+                GenerateChunks();
+                GenerateAnts();
+                generation();
+        }
 
-            Camera.main.transform.position = new Vector3(0 / 2, Blocks.GetLength(1), 0);
-            Camera.main.transform.LookAt(new Vector3(Blocks.GetLength(0), 0, Blocks.GetLength(2)));
 
-            ConfigurationManager.Instance.nestBlocksPlaced = 0;
-            network1= new NeuralNetwork(layers);
-            GenerateAnts();
-
-            if(network1 == null)
-            {
-                network2= new NeuralNetwork(layers);
-                network2.SetFitness(0);
-                network1= new NeuralNetwork(network2);
-                network1.Mutate();
-            }else{
-                if(network1.CompareTo(network2) == 1)
-                {
-                    network2 = new NeuralNetwork(network1);
-                    network2.SetFitness(network1.GetFitness());
-                }
-                network1 = new NeuralNetwork(network2);
-                network1.Mutate();
-            }
+        /// <summary>
+        /// TO BE IMPLEMENTED BY YOU
+        /// </summary>
+        public void generation()
+        {
             
+            if(network1.CompareTo(network2) == 1)
+            {
+                network2 = new NeuralNetwork(network1);
+                network2.SetFitness(network1.GetFitness());
+            }
+            network1 = new NeuralNetwork(network2);
+            network1.Mutate();
         }
 
         private void GenerateAnts()
@@ -190,10 +185,10 @@ namespace Antymology.Terrain
 
         #region Methods
 
-        public int getMove(float xToQueen, float yToQueen, float health )
+        public int getMove(float xToQueen, float zToQueen, float health )
         {
             float move = 0;
-            float[] inputs = new float[]{xToQueen,yToQueen,health};
+            float[] inputs = new float[]{xToQueen,zToQueen,health};
             move = network1.FeedForward(inputs)[0];
             
             if(move < 0.16667)
@@ -272,9 +267,9 @@ namespace Antymology.Terrain
                 WorldXCoordinate < 0 ||
                 WorldYCoordinate < 0 ||
                 WorldZCoordinate < 0 ||
-                WorldXCoordinate > Blocks.GetLength(0) ||
-                WorldYCoordinate > Blocks.GetLength(1) ||
-                WorldZCoordinate > Blocks.GetLength(2)
+                WorldXCoordinate > Blocks.GetLength(0) -1 ||
+                WorldYCoordinate > Blocks.GetLength(1) -1||
+                WorldZCoordinate > Blocks.GetLength(2) -1
             )
             {
                 Debug.Log("Attempted to set a block which didn't exist");
@@ -304,9 +299,9 @@ namespace Antymology.Terrain
                 LocalXCoordinate < 0 ||
                 LocalYCoordinate < 0 ||
                 LocalZCoordinate < 0 ||
-                LocalXCoordinate > Blocks.GetLength(0) ||
-                LocalYCoordinate > Blocks.GetLength(1) ||
-                LocalZCoordinate > Blocks.GetLength(2) ||
+                LocalXCoordinate > Blocks.GetLength(0) -1 ||
+                LocalYCoordinate > Blocks.GetLength(1) -1 ||
+                LocalZCoordinate > Blocks.GetLength(2) -1 ||
                 ChunkXCoordinate < 0 ||
                 ChunkYCoordinate < 0 ||
                 ChunkZCoordinate < 0 ||
@@ -511,7 +506,7 @@ namespace Antymology.Terrain
 
             if (updateZ - 1 >= 0)
                 Chunks[updateX, updateY, updateZ - 1].updateNeeded = true;
-            if (updateX + 1 < Chunks.GetLength(2))
+            if (updateZ + 1 < Chunks.GetLength(2))
                 Chunks[updateX, updateY, updateZ + 1].updateNeeded = true;
         }
 

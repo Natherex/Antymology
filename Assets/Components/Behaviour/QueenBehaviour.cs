@@ -67,8 +67,8 @@ public class QueenBehaviour : MonoBehaviour
             if (health == 0)
             {
                 WorldManager.Instance.queensHealth = 0;
-                WorldManager.Instance.generation();
-                Destroy(gameObject);
+                WorldManager.Instance.reset();
+                //Destroy(gameObject);
             }else if(health >= limit)
             {
                 int currentX = (int)this.transform.position.x;

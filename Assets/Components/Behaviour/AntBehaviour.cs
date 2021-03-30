@@ -22,7 +22,6 @@ public class AntBehaviour : MonoBehaviour
     }
     IEnumerator actions()
     {
-        var rand = new System.Random(seed);
         while(true)
         {
             yield return new WaitForSeconds(1); 
@@ -32,7 +31,9 @@ public class AntBehaviour : MonoBehaviour
             }
 
             blockInteraction();
-            movement(rand.Next(0,6));
+            movement(WorldManager.Instance.getMove(Mathf.Abs(WorldManager.Instance.queensX-(int)this.transform.position.x),
+                                                    Mathf.Abs(WorldManager.Instance.queensZ-(int)this.transform.position.z), 
+                                                    health));
         }
     }
     private void blockInteraction()
