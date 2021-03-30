@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 705507994}
   m_Layer: 0
   m_Name: Directional Light
-  m_TagString: Untagged
+  m_TagString: dontDelete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 964896559}
   m_Layer: 0
   m_Name: WorldManager
-  m_TagString: Untagged
+  m_TagString: dontDelete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -376,6 +376,10 @@ MonoBehaviour:
     type: 3}
   queenPrefab: {fileID: 7765008201606534677, guid: f15f787611d5d0644b5f63525ed8913f,
     type: 3}
+  queensX: 0
+  queensY: 0
+  queensZ: 0
+  queensHealth: 100
   blockMaterial: {fileID: 2100000, guid: 4db9d8fce1a69b74f81daf1375c9ed88, type: 2}
 --- !u!4 &964896558
 Transform:
@@ -404,9 +408,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Seed: 1337
-  World_Diameter: 16
+  World_Diameter: 5
   nestBlocksPlaced: 0
-  numOfAnts: 1
+  numOfAnts: 20
   World_Height: 5
   Chunk_Diameter: 8
   Tile_Map_Unit_Ratio: 0.25

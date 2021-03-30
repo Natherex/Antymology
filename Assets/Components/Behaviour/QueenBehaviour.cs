@@ -9,9 +9,9 @@ public class QueenBehaviour : MonoBehaviour
 {
     private int maxHealth = 100;
     private int health = 100;
-    private int limit = 50;
+    private int limit = 60;
     public int seed;
-    private int turnCost = 2;
+    private int turnCost = 1;
     private int turnPenalty = 0;
     // Start is called before the first frame update
     private Boolean toRight = true;

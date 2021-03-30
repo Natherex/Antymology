@@ -135,7 +135,9 @@ namespace Antymology.Terrain
 
 
         /// <summary>
-        /// TO BE IMPLEMENTED BY YOU
+        /// Create a new gneration of ants. If the current generation is better
+        /// than the previous generation mutate this generations neural Network
+        /// otherwise mutate the previous generations neural network and use it.
         /// </summary>
         public void generation()
         {
@@ -160,8 +162,13 @@ namespace Antymology.Terrain
 
         private void createAnt(int seed)
         {
+            int x = UnityEngine.Random.Range(1,(ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter) -1) ;
+            int z = UnityEngine.Random.Range(1,(ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter) -1) ;
+            //var rand = new System.Random((int)Time.time);
+            //int x = rand.Next(1,(ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.World_Diameter)-1);
+            //int z = rand.Next(1,(ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.World_Diameter)-1);
             GameObject newAnt = Instantiate(antPrefab) as GameObject;
-            newAnt.transform.position = new Vector3(50,50,50);
+            newAnt.transform.position = new Vector3(x,50,z);
             newAnt.GetComponent<AntBehaviour>().seed = seed;
             while(GetBlock((int)newAnt.transform.position.x,(int)newAnt.transform.position.y-1,(int)newAnt.transform.position.z).Name == "Air")
             {
@@ -172,8 +179,10 @@ namespace Antymology.Terrain
 
          private void createQueen(int seed)
         {
+            int x = UnityEngine.Random.Range(1,(ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter) -1) ;
+            int z = UnityEngine.Random.Range(1,(ConfigurationManager.Instance.World_Diameter * ConfigurationManager.Instance.Chunk_Diameter) -1) ;
             GameObject newAnt = Instantiate(queenPrefab) as GameObject;
-            newAnt.transform.position = new Vector3(50,50,50);
+            newAnt.transform.position = new Vector3(x,50,z);
             newAnt.GetComponent<QueenBehaviour>().seed = seed;
             while(GetBlock((int)newAnt.transform.position.x,(int)newAnt.transform.position.y-1,(int)newAnt.transform.position.z).Name == "Air")
             {
@@ -189,8 +198,8 @@ namespace Antymology.Terrain
         {
             float move = 0;
             float[] inputs = new float[]{xToQueen,zToQueen,health};
-            move = network1.FeedForward(inputs)[0];
-            
+            move = Mathf.Abs(network1.FeedForward(inputs)[0]);
+            Debug.Log(move);
             if(move < 0.16667)
                 return 0;
             if(move < 0.33333)

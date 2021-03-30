@@ -8,7 +8,7 @@ public class AntBehaviour : MonoBehaviour
 {
     public int health = 100;
     public int seed;
-    private int turnCost = 2;
+    private int turnCost = 1;
     private int turnPenalty = 0;
     // Start is called before the first frame update
     void Start()
@@ -20,6 +20,7 @@ public class AntBehaviour : MonoBehaviour
     void Update()
     {
     }
+    //Loop through an ants actions once a seconds
     IEnumerator actions()
     {
         while(true)
@@ -36,6 +37,10 @@ public class AntBehaviour : MonoBehaviour
                                                     health));
         }
     }
+
+    /*
+        Checks the current block the ant is on for any ailments
+    */
     private void blockInteraction()
     {
             int currentX = (int)this.transform.position.x;
