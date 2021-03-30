@@ -36,5 +36,11 @@ The terrain memory, generation, and display all take place in the terrain compon
 
 ### UI
  Currently consists of a fly camera, and a camera-controlled map editor and a basic GUI that displays how many nest blocks have been placed.
+ 
+ References:
+ 
+ THe neural Network: Pabla, I. (2017, May 28). Tutorial on programming an evolving neural network in c# w/ unity3d. 
+            Retrieved March 27, 2021, from https://www.youtube.com/watch?v=Yq0SfuiOVYE&amp;ab_channel=UnderpowerJet , 
+        Creates a basic Neural Network that uses tanh function with mutation capabilities
 
 
