@@ -7,6 +7,7 @@ The settings of the ant world can be found and changed in the world manager.
 The Behaviour component consists of The Ants behaviours, The Queens Behaviours and the Neural Network. The neural network uses a tanH activation method.
 -My code implements a neural Network that all the ants share and use to determine there next move. 
 - Each ant can perform 6 actions which are to :
+
         0 - move 1 tile in x axis
         1 - move 1 tile in z axis
         2 - move -1 tile in x axis
@@ -14,6 +15,7 @@ The Behaviour component consists of The Ants behaviours, The Queens Behaviours a
         4 - eat mulch tile
         5 - dig up one tile
 - The queen can perform 7 actions which are to :
+
         0 - move 1 tile in x axis
         1 - move 1 tile in z axis
         2 - move -1 tile in x axis
