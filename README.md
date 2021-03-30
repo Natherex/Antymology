@@ -35,7 +35,4 @@ The terrain memory, generation, and display all take place in the terrain compon
 ### UI
  Currently consists of a fly camera, and a camera-controlled map editor and a basic GUI that displays how many nest blocks have been placed.
 
-## Requirements
-.
- - All project documentation should be provided via a Readme.md file found in your repo. Write it as if I was an employer who wanted to see a portfolio of your work. By that I mean write it as if I have no idea what the project is. Describe it in detail. Include images/gifs.
 
