@@ -7,7 +7,7 @@ using System;
  /*
         Writen by Inderpreet Pabla 05-28-2017 
         Pabla, I. (2017, May 28). Tutorial on programming an evolving neural network in c# w/ unity3d. 
-            Retrieved March 27, 2021, from https://www.youtube.com/watch?v=Yq0SfuiOVYE&amp;ab_channel=UnderpowerJet
+            Retrieved March 27, 2021, from https://www.youtube.com/watch?v=Yq0SfuiOVYE&amp;ab_channel=UnderpowerJet 
         Creates a basic Neural Network that uses tanh function with mutation capabilities
 */
 public class NeuralNetwork : IComparable<NeuralNetwork>
@@ -144,6 +144,7 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
                 {
                     value += weights[i - 1][j][k] * neurons[i - 1][k]; //sum off all weights connections of this neuron weight their values in previous layer
                 }
+                
 
                 neurons[i][j] = (float)Math.Tanh(value); //Hyperbolic tangent activation
             }
